@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Capsule {
+  id            String         @id @default(uuid())
+  title         String
+  slug          String         @unique
+  songUrl       String?
+  letter        String
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  timelineItems TimelineItem[]
+
+  @@index([slug])
+}
+
+model TimelineItem {
+  id         String   @id @default(uuid())
+  capsuleId  String
+  imageUrl   String
+  caption    String
+  sortOrder  Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  capsule    Capsule  @relation(fields: [capsuleId], references: [id], onDelete: Cascade)
+
+  @@index([capsuleId])
+  @@index([sortOrder])
+}

@@ -80,13 +80,13 @@ datasource db {
 }
 
 model Capsule {
-	id           String         @id @default(uuid())
-	title        String
-	songUrl      String?
-	letter       String
-	slug         String         @unique
-	createdAt    DateTime       @default(now())
-	updatedAt    DateTime       @updatedAt
+	id            String         @id @default(uuid())
+	title         String
+	songUrl       String?
+	letter        String
+	slug          String         @unique
+	createdAt     DateTime       @default(now())
+	updatedAt     DateTime       @updatedAt
 
 	timelineItems TimelineItem[]
 }
@@ -141,6 +141,8 @@ npx tsc --init
 npx prisma init
 ```
 
+Depois do `prisma init`, ajuste a base para o padrão mais novo do Prisma criando `backend/prisma.config.ts` e removendo a `url` de `backend/prisma/schema.prisma`.
+
 ### 4. Configurar o banco PostgreSQL
 
 Crie um banco local ou use Neon e adicione a string em `backend/.env`:
@@ -157,14 +159,18 @@ npx prisma migrate dev --name init
 npx prisma generate
 ```
 
+Se estiver usando a versão mais recente do Prisma, o arquivo `prisma.config.ts` já vai ser lido automaticamente e a connection string continuará vindo de `DATABASE_URL`.
+
 ### 6. Preparar variáveis e scripts base
 
 Depois disso, crie os arquivos principais:
 
 - `frontend/src/main.tsx`
 - `frontend/src/App.tsx`
+- `frontend/src/styles/globals.css`
 - `backend/src/app.ts`
 - `backend/src/server.ts`
+- `backend/prisma.config.ts`
 
 E adicione scripts de desenvolvimento em cada `package.json`:
 
