@@ -16,7 +16,7 @@ export default {
       },
       backgroundImage: {
         "aurabox-radial":
-          "radial-gradient(circle at top, rgba(241, 91, 42, 0.22), transparent 28%), radial-gradient(circle at 20% 20%, rgba(216, 180, 90, 0.18), transparent 20%), linear-gradient(180deg, #111114 0%, #070708 100%)",
+          "radial-gradient(circle at top, rgba(238, 175, 95, 0.24), transparent 28%), radial-gradient(circle at 20% 20%, rgba(196, 133, 46, 0.16), transparent 20%), linear-gradient(180deg, #fbf8f2 0%, #f2ebe1 100%)",
       },
       keyframes: {
         floatSlow: {
