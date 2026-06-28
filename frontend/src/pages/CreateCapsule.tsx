@@ -12,7 +12,6 @@ export default function CreateCapsule() {
   const [title, setTitle] = useState("");
   const [recipientName, setRecipientName] = useState("");
   const [occasion, setOccasion] = useState("");
-  const [songUrl, setSongUrl] = useState("");
   const [letter, setLetter] = useState("");
 
   async function handleSubmit(e: FormEvent) {
@@ -25,7 +24,6 @@ export default function CreateCapsule() {
         title,
         recipientName: recipientName || undefined,
         occasion: occasion || undefined,
-        songUrl: songUrl || undefined,
         letter,
       });
 
@@ -52,12 +50,16 @@ export default function CreateCapsule() {
           Crie sua cápsula
         </h1>
         <p className="text-[#bcaea6] mb-8">
-          Preencha os detalhes abaixo. Você poderá adicionar fotos depois do pagamento.
+          Preencha os detalhes abaixo. Você poderá adicionar fotos e música
+          depois do pagamento.
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label htmlFor="title" className="block text-sm font-bold text-rose-300 mb-1">
+            <label
+              htmlFor="title"
+              className="block text-sm font-bold text-rose-300 mb-1"
+            >
               Título da cápsula *
             </label>
             <input
@@ -72,7 +74,10 @@ export default function CreateCapsule() {
           </div>
 
           <div>
-            <label htmlFor="recipientName" className="block text-sm font-bold text-rose-300 mb-1">
+            <label
+              htmlFor="recipientName"
+              className="block text-sm font-bold text-rose-300 mb-1"
+            >
               Nome de quem vai receber
             </label>
             <input
@@ -86,7 +91,10 @@ export default function CreateCapsule() {
           </div>
 
           <div>
-            <label htmlFor="occasion" className="block text-sm font-bold text-rose-300 mb-1">
+            <label
+              htmlFor="occasion"
+              className="block text-sm font-bold text-rose-300 mb-1"
+            >
               Ocasião
             </label>
             <input
@@ -100,21 +108,10 @@ export default function CreateCapsule() {
           </div>
 
           <div>
-            <label htmlFor="songUrl" className="block text-sm font-bold text-rose-300 mb-1">
-              Link da música (Spotify ou YouTube)
-            </label>
-            <input
-              id="songUrl"
-              type="url"
-              value={songUrl}
-              onChange={(e) => setSongUrl(e.target.value)}
-              placeholder="https://open.spotify.com/track/..."
-              className="w-full rounded-lg border border-zinc-800 bg-zinc-900/40 px-4 py-3 text-white placeholder:text-zinc-600 focus:border-rose-600 focus:outline-none"
-            />
-          </div>
-
-          <div>
-            <label htmlFor="letter" className="block text-sm font-bold text-rose-300 mb-1">
+            <label
+              htmlFor="letter"
+              className="block text-sm font-bold text-rose-300 mb-1"
+            >
               Sua carta *
             </label>
             <textarea

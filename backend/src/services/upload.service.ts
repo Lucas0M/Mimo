@@ -30,6 +30,27 @@ export class UploadService {
       throw new UploadError("Falha ao enviar imagem para o Cloudinary");
     }
   }
+
+  /**
+   * Upload de arquivo de áudio (mp3, wav, etc). A Cloudinary trata áudio
+   * como resource_type "video" (sem componente visual) — não é um erro
+   * nosso, é assim que a API deles funciona oficialmente.
+   */
+  async uploadAudio(fileBuffer: Buffer, mimetype: string): Promise<string> {
+    const base64 = fileBuffer.toString("base64");
+    const dataUri = `data:${mimetype};base64,${base64}`;
+
+    try {
+      const result = await cloudinary.uploader.upload(dataUri, {
+        folder: "capsula-do-tempo/audio",
+        resource_type: "video", // áudio é tratado como "video" pela Cloudinary
+      });
+
+      return result.secure_url;
+    } catch (error) {
+      throw new UploadError("Falha ao enviar áudio para o Cloudinary");
+    }
+  }
 }
 
 export const uploadService = new UploadService();

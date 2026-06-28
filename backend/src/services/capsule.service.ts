@@ -1,5 +1,8 @@
 import { prisma } from "../lib/prisma";
-import { CreateCapsuleInput, UpdateCapsuleInput } from "../validators/capsule.validator";
+import {
+  CreateCapsuleInput,
+  UpdateCapsuleInput,
+} from "../validators/capsule.validator";
 import slugify from "../utils/slugify";
 
 export class CapsuleService {
@@ -65,6 +68,9 @@ export class CapsuleService {
         recipientName: input.recipientName,
         occasion: input.occasion,
         songUrl: input.songUrl,
+        // se um novo songUrl foi enviado, limpa o songFileUrl —
+        // são mutuamente exclusivos (ver setSongFile)
+        ...(input.songUrl ? { songFileUrl: null } : {}),
         letter: input.letter,
       },
       include: { timelineItems: { orderBy: { sortOrder: "asc" } } },
@@ -77,7 +83,7 @@ export class CapsuleService {
 
   async addTimelineItem(
     capsuleId: string,
-    item: { imageUrl: string; caption: string; sortOrder?: number }
+    item: { imageUrl: string; caption: string; sortOrder?: number },
   ) {
     const count = await prisma.timelineItem.count({ where: { capsuleId } });
 
@@ -94,6 +100,27 @@ export class CapsuleService {
   async removeTimelineItem(capsuleId: string, itemId: string) {
     return prisma.timelineItem.deleteMany({
       where: { id: itemId, capsuleId }, // garante que o item pertence à cápsula
+    });
+  }
+
+  /**
+   * Define o arquivo de áudio (mp3) da cápsula. songUrl e songFileUrl são
+   * mutuamente exclusivos — ao definir um arquivo próprio, qualquer link
+   * de Spotify/YouTube anterior é removido, e vice-versa em removeSongFile.
+   */
+  async setSongFile(capsuleId: string, songFileUrl: string) {
+    return prisma.capsule.update({
+      where: { id: capsuleId },
+      data: { songFileUrl, songUrl: null },
+      include: { timelineItems: { orderBy: { sortOrder: "asc" } } },
+    });
+  }
+
+  async removeSongFile(capsuleId: string) {
+    return prisma.capsule.update({
+      where: { id: capsuleId },
+      data: { songFileUrl: null },
+      include: { timelineItems: { orderBy: { sortOrder: "asc" } } },
     });
   }
 
