@@ -6,7 +6,7 @@ import type { CheckoutSession } from "@prisma/client";
 
 // Preço fixo da cápsula. Coloquei aqui como constante por simplicidade do MVP;
 // se um dia você tiver planos diferentes, isso deve virar um campo de produto no banco.
-const CAPSULE_PRICE_IN_CENTS = 2990; // R$ 29,90
+const CAPSULE_PRICE_IN_CENTS = 1790; // R$ 17,90
 
 // PIX expira em 1h por padrão — dá tempo da pessoa terminar de pagar sem
 // deixar cobranças "zumbis" abertas por dias.
@@ -71,10 +71,15 @@ export class CheckoutService {
       return capsule.checkoutSession;
     }
 
-    if (capsule.checkoutSession && capsule.checkoutSession.status === "PENDING") {
+    if (
+      capsule.checkoutSession &&
+      capsule.checkoutSession.status === "PENDING"
+    ) {
       // Sessão antiga expirou (ou nunca teve expiresAt definido por falha anterior) —
       // removemos pra não deixar lixo no banco antes de criar a nova.
-      await prisma.checkoutSession.deleteMany({ where: { id: capsule.checkoutSession.id } });
+      await prisma.checkoutSession.deleteMany({
+        where: { id: capsule.checkoutSession.id },
+      });
     }
 
     // Graças ao lock acima, não há mais concorrência real chegando aqui
@@ -143,7 +148,10 @@ export class CheckoutService {
     });
 
     if (!session) {
-      throw new CheckoutError("CheckoutSession não encontrada para o externalId recebido", 404);
+      throw new CheckoutError(
+        "CheckoutSession não encontrada para o externalId recebido",
+        404,
+      );
     }
 
     if (session.status === "PAID") {
@@ -181,7 +189,10 @@ export class CheckoutService {
 }
 
 export class CheckoutError extends Error {
-  constructor(message: string, public status: number = 400) {
+  constructor(
+    message: string,
+    public status: number = 400,
+  ) {
     super(message);
     this.name = "CheckoutError";
   }
