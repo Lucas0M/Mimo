@@ -52,12 +52,16 @@ export default function CreateCapsule() {
           Crie sua cápsula
         </h1>
         <p className="text-[#bcaea6] mb-8">
-          Preencha os detalhes abaixo. Você poderá adicionar fotos e música depois do pagamento.
+          Preencha os detalhes abaixo. Você poderá adicionar fotos e música
+          depois do pagamento.
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label htmlFor="title" className="block text-sm font-bold text-rose-300 mb-1">
+            <label
+              htmlFor="title"
+              className="block text-sm font-bold text-rose-300 mb-1"
+            >
               Título da cápsula *
             </label>
             <input
@@ -72,7 +76,10 @@ export default function CreateCapsule() {
           </div>
 
           <div>
-            <label htmlFor="recipientName" className="block text-sm font-bold text-rose-300 mb-1">
+            <label
+              htmlFor="recipientName"
+              className="block text-sm font-bold text-rose-300 mb-1"
+            >
               Nome de quem vai receber
             </label>
             <input
@@ -86,7 +93,10 @@ export default function CreateCapsule() {
           </div>
 
           <div>
-            <label htmlFor="occasion" className="block text-sm font-bold text-rose-300 mb-1">
+            <label
+              htmlFor="occasion"
+              className="block text-sm font-bold text-rose-300 mb-1"
+            >
               Ocasião
             </label>
             <input
@@ -100,7 +110,10 @@ export default function CreateCapsule() {
           </div>
 
           <div>
-            <label htmlFor="letter" className="block text-sm font-bold text-rose-300 mb-1">
+            <label
+              htmlFor="letter"
+              className="block text-sm font-bold text-rose-300 mb-1"
+            >
               Sua carta *
             </label>
             <textarea
@@ -116,7 +129,10 @@ export default function CreateCapsule() {
           </div>
 
           <div>
-            <label htmlFor="creatorEmail" className="block text-sm font-bold text-rose-300 mb-1">
+            <label
+              htmlFor="creatorEmail"
+              className="block text-sm font-bold text-rose-300 mb-1"
+            >
               Seu e-mail (opcional)
             </label>
             <input
@@ -128,8 +144,9 @@ export default function CreateCapsule() {
               className="w-full rounded-lg border border-zinc-800 bg-zinc-900/40 px-4 py-3 text-white placeholder:text-zinc-600 focus:border-rose-600 focus:outline-none"
             />
             <p className="text-xs text-zinc-500 mt-1.5">
-              Enviamos o link de gerenciamento da sua cápsula para esse e-mail depois do
-              pagamento — útil caso você perca o acesso neste navegador.
+              Enviamos o link de gerenciamento da sua cápsula para esse e-mail
+              depois do pagamento — útil caso você perca o acesso neste
+              navegador.
             </p>
           </div>
 

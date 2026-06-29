@@ -8,7 +8,16 @@ import webhooksRoutes from "./routes/webhooks";
 
 const app = express();
 
-app.use(cors({ origin: env.FRONTEND_URL }));
+app.use(
+  cors({
+    origin: [
+      "https://mimo-frontend-six.vercel.app", // 👈 Cole exatamente a URL que aparece no erro do console
+      "http://localhost:5173", // Para você continuar testando local se precisar
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  }),
+);
 
 /**
  * ORDEM IMPORTA AQUI.
@@ -35,11 +44,11 @@ app.use(
     err: Error,
     _req: express.Request,
     res: express.Response,
-    _next: express.NextFunction
+    _next: express.NextFunction,
   ) => {
     console.error(err);
     res.status(500).json({ error: "Erro interno no servidor" });
-  }
+  },
 );
 
 export default app;
